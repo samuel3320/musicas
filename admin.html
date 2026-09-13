@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adicionar Cifra — CifraCloud</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎸</text></svg>">
+</head>
+<body>
+
+<!-- ====== HEADER ====== -->
+<header class="header">
+  <div class="header-inner">
+    <a class="logo" href="index.html" title="Início">
+      <span class="logo-icon">🎸</span>
+      <span class="logo-text">Cifra<span>Cloud</span></span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html" class="btn btn-ghost">🔍 Buscar</a>
+      <button id="theme-toggle" class="btn btn-icon btn-ghost" title="Alternar tema">🌙</button>
+    </nav>
+  </div>
+</header>
+
+<!-- ====== ADMIN ====== -->
+<main>
+  <div class="admin-container">
+
+    <h1 class="admin-title">➕ Adicionar Cifra</h1>
+    <p class="admin-subtitle">
+      Cole qualquer cifra do CifraClub ou dos seus arquivos TXT — o sistema detecta o formato
+      automaticamente (acordes acima da letra ou com colchetes) e converte para o formato interno.
+    </p>
+
+    <div class="admin-grid">
+
+      <!-- ====== COLUNA ESQUERDA: Input + Formulário ====== -->
+      <div style="display:flex; flex-direction:column; gap:1rem">
+
+        <!-- Painel: Colar Cifra -->
+        <div class="admin-panel">
+          <div class="admin-panel-header">📋 1. Cole a Cifra Aqui</div>
+          <div class="admin-panel-body">
+            <div class="form-group">
+              <label class="form-label">Texto completo (com título, artista, tom e acordes)</label>
+              <textarea
+                id="admin-input"
+                class="form-input form-input-mono paste-area"
+                placeholder="Cole aqui diretamente do CifraClub ou do seu arquivo TXT...
+
+Exemplo CifraClub:
+Hosana
+(Hillsong Worship)
+Tom: G
+
+Verso 1:
+G              D
+Hosana, hosana,
+   Em             C
+Hosana nas alturas"
+              ></textarea>
+            </div>
+            <div class="form-actions">
+              <button id="parse-btn" class="btn btn-primary">🔍 Analisar e Preencher</button>
+              <button id="clear-btn" class="btn">🗑️ Limpar Tudo</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Painel: Dados da Música -->
+        <div class="admin-panel">
+          <div class="admin-panel-header">📝 2. Revise os Dados</div>
+          <div class="admin-panel-body">
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Título *</label>
+                <input type="text" id="admin-title" class="form-input" placeholder="Ex: Hosana">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Artista / Banda</label>
+                <input type="text" id="admin-artist" class="form-input" placeholder="Ex: Hillsong Worship">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Tom Original *</label>
+                <select id="admin-key" class="form-input">
+                  <optgroup label="Maiores">
+                    <option value="C">C</option>
+                    <option value="C#">C#</option>
+                    <option value="Db">Db</option>
+                    <option value="D">D</option>
+                    <option value="D#">D#</option>
+                    <option value="Eb">Eb</option>
+                    <option value="E">E</option>
+                    <option value="F">F</option>
+                    <option value="F#">F#</option>
+                    <option value="Gb">Gb</option>
+                    <option value="G" selected>G</option>
+                    <option value="G#">G#</option>
+                    <option value="Ab">Ab</option>
+                    <option value="A">A</option>
+                    <option value="A#">A#</option>
+                    <option value="Bb">Bb</option>
+                    <option value="B">B</option>
+                  </optgroup>
+                  <optgroup label="Menores">
+                    <option value="Am">Am</option>
+                    <option value="Bm">Bm</option>
+                    <option value="Cm">Cm</option>
+                    <option value="Dm">Dm</option>
+                    <option value="Em">Em</option>
+                    <option value="F#m">F#m</option>
+                    <option value="Gm">Gm</option>
+                    <option value="Bbm">Bbm</option>
+                  </optgroup>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Capo (opcional)</label>
+                <input type="number" id="admin-capo" class="form-input" placeholder="Ex: 2" min="0" max="12">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Tags (separadas por vírgula)</label>
+              <input type="text" id="admin-tags" class="form-input"
+                placeholder="Ex: louvor, adoração, hino, comunhão">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">ID do Arquivo (nome único, sem espaços) *</label>
+              <input type="text" id="admin-id" class="form-input form-input-mono"
+                placeholder="Ex: hosana-hillsong">
+              <span class="form-note">
+                Arquivo: <code>data/songs/<span class="output-filename">...</span>.json</code>
+              </span>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Cifra convertida (formato interno com colchetes)</label>
+              <textarea
+                id="admin-content"
+                class="form-input form-input-mono"
+                style="min-height: 200px"
+                placeholder="[G]Hosana, [D]hosana,&#10;[Em]Hosana nas [C]alturas&#10;&#10;Edite manualmente se precisar ajustar algum acorde"
+              ></textarea>
+              <span class="form-note">
+                Cada acorde fica entre colchetes imediatamente antes da sílaba: <code>[G]pa[Am]la[D7]vra</code>
+              </span>
+            </div>
+
+            <div class="form-actions">
+              <button id="generate-btn" class="btn btn-primary">⚡ Gerar Arquivos JSON</button>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- fim coluna esquerda -->
+
+      <!-- ====== COLUNA DIREITA: Preview + Output ====== -->
+      <div style="display:flex; flex-direction:column; gap:1rem">
+
+        <!-- Painel: Preview -->
+        <div class="admin-panel">
+          <div class="admin-panel-header">👁️ Preview da Cifra</div>
+          <div class="preview-panel">
+            <div id="preview-title"  class="preview-title">Título da Música</div>
+            <div id="preview-artist" class="preview-artist"></div>
+            <div class="meta-chip key-chip preview-key-chip">
+              Tom: <strong id="preview-key">G</strong>
+            </div>
+            <div id="preview-content" class="cifra-display" style="margin-top:.75rem"></div>
+          </div>
+        </div>
+
+        <!-- Painel: Arquivos para salvar (oculto até clicar em Gerar) -->
+        <div id="output-section" class="admin-panel" style="display:none">
+          <div class="admin-panel-header">💾 3. Salve os Arquivos</div>
+          <div class="admin-panel-body">
+
+            <!-- Arquivo da música -->
+            <div class="output-section">
+              <div class="output-header">
+                <span class="output-label">
+                  data/songs/<span class="output-filename">song</span>.json
+                </span>
+                <button id="copy-song-btn" class="btn btn-icon" title="Copiar JSON">📋 Copiar</button>
+              </div>
+              <div id="song-json-output" class="json-output"></div>
+            </div>
+
+            <!-- Entrada do índice -->
+            <div class="output-section">
+              <div class="output-header">
+                <span class="output-label">Entrada para data/index.json</span>
+                <button id="copy-index-btn" class="btn btn-icon" title="Copiar entrada">📋 Copiar</button>
+              </div>
+              <div id="index-json-output" class="json-output"></div>
+            </div>
+
+            <!-- Instruções -->
+            <div class="instructions-box">
+              <strong>📌 Como salvar:</strong>
+              <ol>
+                <li>Copie o primeiro JSON e salve como
+                  <code>data/songs/<span class="output-filename">song</span>.json</code>
+                </li>
+                <li>Abra <code>data/index.json</code> e adicione a entrada do índice dentro do array <code>[…]</code></li>
+                <li>Faça <strong>commit + push</strong> para o GitHub — a música já aparece no site!</li>
+              </ol>
+            </div>
+
+          </div>
+        </div><!-- fim output-section -->
+
+      </div><!-- fim coluna direita -->
+
+    </div><!-- fim admin-grid -->
+  </div><!-- fim admin-container -->
+</main>
+
+<script src="js/transpose.js"></script>
+<script src="js/render.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
+

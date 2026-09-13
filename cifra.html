@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cifra — CifraCloud</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎸</text></svg>">
+</head>
+<body>
+
+<!-- ====== HEADER ====== -->
+<header class="header">
+  <div class="header-inner">
+    <a class="logo" href="index.html" title="Início">
+      <span class="logo-icon">🎸</span>
+      <span class="logo-text">Cifra<span>Cloud</span></span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html" class="btn btn-ghost">🔍 Buscar</a>
+      <a href="admin.html" class="btn btn-ghost">➕ Adicionar</a>
+      <button id="theme-toggle" class="btn btn-icon btn-ghost" title="Alternar tema">🌙</button>
+    </nav>
+  </div>
+</header>
+
+<!-- ====== CONTEÚDO DA CIFRA ====== -->
+<main>
+  <div class="page-content">
+
+    <!-- Botão voltar -->
+    <a id="back-btn" class="back-btn" href="index.html">← Voltar</a>
+
+    <!-- Cabeçalho da música -->
+    <div class="cifra-header">
+      <h1 id="song-title" class="cifra-song-title">Carregando…</h1>
+      <div id="song-artist" class="cifra-song-artist"></div>
+      <div class="cifra-song-meta">
+        <div class="meta-chip key-chip">
+          Tom original: <strong id="original-key">—</strong>
+        </div>
+        <div id="capo-info" class="meta-chip" style="display:none">
+          <strong></strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- Barra de transposição -->
+    <div class="transpose-bar">
+      <span class="transpose-label">Tom atual:</span>
+
+      <button id="transpose-down" class="transpose-btn" title="Abaixar meio tom (♭)">♭</button>
+
+      <div class="transpose-display">
+        <span id="key-display" class="transpose-key">—</span>
+        <span id="semitones-display" class="transpose-semitones">tom original</span>
+      </div>
+
+      <button id="transpose-up" class="transpose-btn" title="Subir meio tom (♯)">♯</button>
+
+      <button id="transpose-reset" class="transpose-reset" title="Voltar ao tom original">↺ Original</button>
+
+      <div class="font-controls" title="Tamanho da fonte">
+        <button id="font-decrease" class="font-control-btn" title="Diminuir fonte">A−</button>
+        <button id="font-increase" class="font-control-btn" title="Aumentar fonte">A+</button>
+      </div>
+    </div>
+
+    <!-- Conteúdo da cifra (renderizado via JS) -->
+    <div id="cifra-display" class="cifra-display">
+      <div class="loading"><div class="spinner"></div></div>
+    </div>
+
+  </div>
+</main>
+
+<script src="js/transpose.js"></script>
+<script src="js/render.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
+

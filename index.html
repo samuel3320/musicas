@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CifraCloud — Minhas Cifras</title>
+  <meta name="description" content="Minhas cifras pessoais para tocar na igreja">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎸</text></svg>">
+</head>
+<body>
+
+<!-- ====== HEADER ====== -->
+<header class="header">
+  <div class="header-inner">
+    <a class="logo" href="index.html" title="Início">
+      <span class="logo-icon">🎸</span>
+      <span class="logo-text">Cifra<span>Cloud</span></span>
+    </a>
+
+    <!-- Busca no header (tablet/desktop) -->
+    <div class="header-search">
+      <span class="header-search-icon">🔍</span>
+      <input
+        type="search"
+        id="header-search"
+        class="search-input"
+        placeholder="Buscar músicas…"
+        autocomplete="off"
+        spellcheck="false"
+      >
+    </div>
+
+    <nav class="nav-links">
+      <a href="admin.html" class="btn btn-ghost">➕ Adicionar</a>
+      <button id="theme-toggle" class="btn btn-icon btn-ghost" title="Alternar tema claro/escuro">🌙</button>
+    </nav>
+  </div>
+</header>
+
+<!-- ====== HERO + BUSCA ====== -->
+<main>
+  <section class="hero">
+    <h1 class="hero-title">🎵 Minhas <span>Cifras</span></h1>
+    <p class="hero-subtitle">Busque por nome da música, artista ou trecho da letra</p>
+
+    <div class="search-container">
+      <div class="search-wrapper">
+        <span class="search-icon">🔍</span>
+        <input
+          type="search"
+          id="search-input"
+          class="search-input"
+          placeholder="Ex: Hosana, Hillsong, "grace how sweet"…"
+          autocomplete="off"
+          spellcheck="false"
+          autofocus
+        >
+      </div>
+      <div class="search-hint">Pressione <kbd>/</kbd> para focar na busca a qualquer momento</div>
+    </div>
+
+    <!-- Filtros por tag (gerados via JS) -->
+    <div id="tags-filter" class="tags-filter"></div>
+  </section>
+
+  <!-- ====== RESULTADOS ====== -->
+  <div id="results-container" class="results-container">
+    <div class="initial-state">
+      <span class="initial-state-icon">🎼</span>
+      <p>Carregando cifras…</p>
+    </div>
+  </div>
+</main>
+
+<script src="js/transpose.js"></script>
+<script src="js/render.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,29 @@
+[
+  {
+    "id": "hosana",
+    "title": "Hosana",
+    "artist": "Hillsong Worship",
+    "key": "G",
+    "tags": ["louvor", "adoração"],
+    "searchText": "hosana hosana hosana nas alturas quero ver tua gloria enche minha vida toda honra toda gloria"
+  },
+  {
+    "id": "grande-e-o-senhor",
+    "title": "Grande é o Senhor",
+    "artist": "Ministério Ipiranga",
+    "key": "D",
+    "tags": ["adoração", "hino"],
+    "searchText": "grande e o senhor digno de louvor na cidade do nosso deus em seu monte santo formoso em sua altura alegria de toda a terra"
+  },
+
+  {
+  "id": "tua-igreja-canta",
+  "title": "tua igreja canta",
+  "artist": "Israel Salazar",
+  "key": "A",
+  "tags": [],
+  "searchText": "À estrela da manhã Ao rei dos reis Senhor , a Ele o louvo r J esus tu és o r ei Reina em nossos coraçõ es Teu é o reino e o pod er Pra sempre am ém Tua igreja canta a Ti Ergue a voz para declarar Um só povo a proclamar Cantando bem alto, bem alto Rei! Tu és o Re__e i Rei! Tu és o Re__e i"
+  }
+
+]
+
