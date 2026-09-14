@@ -1,12 +1,10 @@
 /* ============================================================
    render.js — Parser e Renderizador de Cifras
-   Converte cifra no formato [ACORDE]letra em HTML estilizado
+   Converte cifra no formato [ACORDE]letra em HTML estilizado,
+   com acordes aproximados da frase e seções destacadas.
    ============================================================ */
 
 'use strict';
-
-// Padrões de marcadores de seção (Verso, Refrão, Ponte, etc.)
-const SECTION_RE = /^\s*(intro|vers[oõ](\s*\d*)?|coro|refrão|refrao|refrão|ponte|outro|solo|estrofe\s*\d*|pr[eé]-?coro|pre[- ]?chorus|bridge|chorus|verse\s*\d*|final|fim|tag|interl[uú]dio|interludio|instrumental)[\s:.\-]*/i;
 
 /**
  * Escapa caracteres HTML especiais.
@@ -20,6 +18,17 @@ function _esc(str) {
 }
 
 /**
+ * Formata o título da seção (ex: "[Refrão]" → "REFRÃO")
+ */
+function _formatSectionTitle(str) {
+  return str.trim()
+    .replace(/^\[+|\]+$/g, '')
+    .replace(/[:.\-]+$/, '')
+    .trim()
+    .toUpperCase();
+}
+
+/**
  * Verifica se uma linha contém acordes inline ([G], [Am7], etc.)
  */
 function _hasChords(line) {
@@ -29,12 +38,13 @@ function _hasChords(line) {
 /**
  * Renderiza uma linha que contém acordes inline.
  * Cada par (acorde, letra) vira um .chord-group com .chord em cima e .lyric embaixo.
- *
- * Ex: "[G]Hosana [D]hosana" → HTML com dois chord-groups
  */
 function _renderChordLine(line) {
+  // Limpa possíveis colchetes aninhados como [[Am7]G/B]
+  const cleaned = line.replace(/\[\[([^\]]+)\]([^\]]+)\]/g, '[$1] [$2]');
+
   // Divide a linha em partes: [ACORDE] e texto
-  const parts = line.split(/(\[[^\]]+\])/);
+  const parts = cleaned.split(/(\[[^\]]+\])/);
 
   const groups = [];
   let pendingChord = null;
@@ -42,18 +52,15 @@ function _renderChordLine(line) {
   for (const part of parts) {
     const chordMatch = part.match(/^\[([^\]]+)\]$/);
     if (chordMatch) {
-      // É um acorde — pode ter acorde anterior sem letra ainda
       if (pendingChord !== null) {
         groups.push({ chord: pendingChord, lyric: '' });
       }
       pendingChord = chordMatch[1];
     } else {
-      // É texto (letra)
       if (pendingChord !== null) {
         groups.push({ chord: pendingChord, lyric: part });
         pendingChord = null;
       } else if (part) {
-        // Texto antes do primeiro acorde
         groups.push({ chord: '', lyric: part });
       }
     }
@@ -68,8 +75,8 @@ function _renderChordLine(line) {
 
   let html = '<div class="cifra-row">';
   for (const g of groups) {
-    const chordHtml = _esc(g.chord);
-    const lyricHtml = _esc(g.lyric);
+    const chordHtml = g.chord ? _esc(g.chord) : '&nbsp;';
+    const lyricHtml = g.lyric ? _esc(g.lyric) : '&nbsp;';
     html += `<span class="chord-group">` +
             `<span class="chord">${chordHtml}</span>` +
             `<span class="lyric">${lyricHtml}</span>` +
@@ -84,26 +91,29 @@ function _renderChordLine(line) {
  *
  * Regras por linha:
  *  - Vazia           → espaçador
- *  - Começa com marcador de seção → .cifra-section
+ *  - Marcador seção  → .cifra-section (ex: REFRÃO, VERSO 1)
  *  - Contém [ACORDE] → chord-groups (.cifra-row)
  *  - Caso contrário  → letra pura (.cifra-lyric-only)
- *
- * @param {string} content  Conteúdo da cifra no formato inline
- * @returns {string}        HTML pronto para inserir no DOM
  */
 function renderCifra(content) {
   if (!content || !content.trim()) {
     return '<div class="empty-state"><span class="empty-state-icon">🎵</span><h3>Cifra não disponível</h3></div>';
   }
 
-  const lines = content.split('\n');
+  // Garante que qualquer acorde em linha tradicional seja normalizado para [acorde]
+  const normalized = (typeof normalizeToInlineChords === 'function')
+    ? normalizeToInlineChords(content)
+    : content;
+
+  const lines = normalized.split('\n');
   let html = '';
 
   for (const line of lines) {
-    if (line.trim() === '') {
+    const trimmed = line.trim();
+    if (trimmed === '') {
       html += '<div class="cifra-empty"></div>';
-    } else if (SECTION_RE.test(line.trim())) {
-      html += `<div class="cifra-section">${_esc(line.trim())}</div>`;
+    } else if (SECTION_RE.test(trimmed)) {
+      html += `<div class="cifra-section">${_esc(_formatSectionTitle(trimmed))}</div>`;
     } else if (_hasChords(line)) {
       html += _renderChordLine(line);
     } else {
@@ -113,4 +123,3 @@ function renderCifra(content) {
 
   return html;
 }
-

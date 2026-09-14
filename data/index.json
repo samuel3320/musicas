@@ -1,46 +1,90 @@
 [
   {
-    "id": "hosana",
-    "title": "Hosana",
-    "artist": "Hillsong Worship",
+    "id": "a-ele-a-gloria",
+    "title": "A Ele a Glória",
+    "artist": "Diante do Trono",
+    "key": "Em",
+    "tags": ["adoração", "celebração"],
+    "searchText": "Porque dEle e por Ele Para Ele são todas as coisas A Ele a Glória A Ele a Glória pra sempre amém"
+  },
+  {
+    "id": "a-tua-gloria",
+    "title": "A tua Gloria",
+    "artist": "Fernanda Brum",
     "key": "G",
-    "tags": ["louvor", "adoração"],
-    "searchText": "hosana hosana hosana nas alturas quero ver tua gloria enche minha vida toda honra toda gloria"
+    "tags": [],
+    "searchText": "Eu vejo a gl ória do Senh or hoje aqu i A sua m ão, o seu pod er sobre m im Os céus ab ertos hoje eu v ou contempl ar O am or descer n esse lug ar Eu quero v er agora o teu pod er A tua gl ória inund ando meu s er Vou levant ar as mãos e v ou receb er Vou louv ando o teu n ome Porque s into o Senhor me tocar"
   },
   {
-    "id": "grande-e-o-senhor",
-    "title": "Grande é o Senhor",
-    "artist": "Ministério Ipiranga",
-    "key": "D",
-    "tags": ["adoração", "hino"],
-    "searchText": "grande e o senhor digno de louvor na cidade do nosso deus em seu monte santo formoso em sua altura alegria de toda a terra"
+    "id": "abra-os-olhos-do-meu-coracao",
+    "title": "Abra Os Olhos do Meu Coração",
+    "artist": "David Quinlan",
+    "key": "E",
+    "tags": ["adoração"],
+    "searchText": "Abra os olhos do meu coração Quero Te ver Santo Exaltando e bem alto Brilhando a luz da Tua glória Derrame Seu amor e poder Pois Tu és Santo Eu quero Te tocar Eu quero Te abraçar"
   },
-
   {
-  "id": "tua-igreja-canta",
-  "title": "tua igreja canta",
-  "artist": "Israel Salazar",
-  "key": "A",
+    "id": "aclame-ao-senhor-diante",
+    "title": "Aclame Ao Senhor",
+    "artist": "Diante do Trono",
+    "key": "A",
+    "tags": [],
+    "searchText": "Meu Jesus, Salvador Outro igu al não h á Todos os d ias qu ero louvar As m aravilhas d e t eu am or Consolo, abrigo F orça e refú gio é o Senh or Com todo o meu s er Com t udo o que s ou S empre te ad o_r a____r ei Acl ame ao Senh or toda a T erra e cant emos Pod er, majest ade e louv ores ao R ei Mont anhas se pr ostrem e r ujam os mares Ao s om d e teu n ome Al egre te l ouvo por t eus grandes f eitos Firm ado estar ei, sempre t e amar ei Incompar áveis são t uas promessas pra m im"
+  },
+  {
+  "id": "adoracao-sem-limites-aline",
+  "title": "Adoração Sem Limites",
+  "artist": "Aline Barros",
+  "key": "C",
   "tags": [],
-  "searchText": "À estrela da manhã Ao rei dos reis Senhor , a Ele o louvo r J esus tu és o r ei Reina em nossos coraçõ es Teu é o reino e o pod er Pra sempre am ém Tua igreja canta a Ti Ergue a voz para declarar Um só povo a proclamar Cantando bem alto, bem alto Rei! Tu és o Re__e i Rei! Tu és o Re__e i"
-  },
-
+  "searchText": "O que darei? O que darei a T i pelos benefí cios, feitos a mi m? Me lembrarei, me lembrarei Senh or de Tuas grandes obra s Não há outro além de ti Não, não há não, não há Meu de sejo é Te ado rar Mais e m ais mais e mai s Sem li mites, me entregare i Te adorar ei maravilho so Deus Mais que pa lavras Te dou meu coração Receba o melhor da minha ado ração"
+},
   {
-  "id": "so-tu-es-santo",
-  "title": "so tu es santo",
-  "artist": "Morada",
-  "key": "F",
-  "tags": [],
-  "searchText": "morada C F7M Digno desta canção só Tu és Senhor Santo És incompar ável És inigual ável Abre os meus o lhos, Senhor Eu vou constru ir minha vida em T i Tu és meu f undamento Eu vou confi ar somente em T i Não vou ser abalado"
+    "id": "em-espirito-em-verdade",
+    "title": "Em espirito, em verdade",
+    "artist": "Harpa Crista",
+    "key": "G",
+    "tags": [],
+    "searchText": "Em Esp írito, em verd ade Te ador amos, Te ador amos Em Esp írito, em verd ade Te ador amos, Te ador amos Rei dos r eis, e Senh or Te entreg amos n osso viv er Rei dos r eis, e Senh or Te entreg amos n osso v iver Pra Te ador ar, oh rei dos r eis Foi que eu nasc i, ó rei J esus Meu praz er é te louv ar Meu praz er é est ar nos átrios do Senh or Meu praz er é v i_v er Na c asa d e Deus, onde f lui o a mor"
   },
   {
-  "id": "em-espirito-em-verdade-647",
-  "title": "Em espirito em verdade 647",
-  "artist": "Harpa Crista",
-  "key": "G",
-  "tags": [],
-  "searchText": "Em Esp írito, em verd ade Te ador amos, Te ador amos G/B] Em Esp írito, em verd ade Te ador amos, Te ador amos Em D#° G/D A/C# Rei dos reis, e Senhor Te entreg amos n osso viv er Em D#° G/D A/C# Rei dos reis, e Senhor Te entreg amos n osso v iver Pra Te ador ar, oh r ei dos r eis Foi que eu nasc i, ó rei J esus B7 D#° Em Meu prazer é te louvar Meu praz er é est ar nos átrios do Senh or Meu praz er é v i_v er Na c asa d e Deus, onde f lui o a mor"
-}
-
+    "id": "em-teus-bracos",
+    "title": "Em teus braços",
+    "artist": "Laura Souguellis",
+    "key": "B",
+    "tags": [],
+    "searchText": "Segura estou nos braços Daquele que nunca me d eixou (2x) E se eu pas__ sar pelo vale Acharei conf orto em Teu am or Pois eu sei que és aquele Que me guarda, me gu ardas Em Teus braços é meu descanso Em Teus braços é meu descanso(2x)"
+  },
+  {
+    "id": "eu-me-alegro-em-ti",
+    "title": "Eu Me Alegro Em Ti",
+    "artist": "IBAB Celebração",
+    "key": "G",
+    "tags": [],
+    "searchText": "IBAB Celebração A Ti bendir ei pra sempr e Em Ti confiar ei, Se nhor Não há por q ue ter me - do Meus pés só na r ocha fir marei Não me abalarei E do Senhor dire i Tu és meu De us Prote tor Meu ref úgio Lib ertador Meu ab rigo Torre forte Todo t empo meu soc orro vem de T i Se o trovão e o mar se er gue ndo vêm Sobre a tempest ade eu v oar ei Sobre as águas Tu tam bém és Rei Descansar ei, pois sei que és D eus"
+  },
+  {
+    "id": "filho-do-deus-vivo",
+    "title": "Filho do Deus vivo",
+    "artist": "Nivea Soares",
+    "key": "E",
+    "tags": [],
+    "searchText": "Intro duç ao e 1 parte E a gora que dizem que Tu és Um prof eta, um ag itador qualqu er Teu Esp írito me revela quem Tu és Ung ido de D eus Tu és o C risto, filho do Deus vivo Sobre esta r ocha Tua igreja est á Tu és o Cr isto, filho do D eus v ivo Rocha inabal ável, outro igual nã o há"
+  },
+  {
+    "id": "so-tu-es-santo",
+    "title": "so tu es santo",
+    "artist": "Morada",
+    "key": "F",
+    "tags": [],
+    "searchText": "morada C F7M Digno desta canção só Tu és Senhor Santo És incompar ável És inigual ável Abre os meus o lhos, Senhor Eu vou constru ir minha vida em T i Tu és meu f undamento Eu vou confi ar somente em T i Não vou ser abalado"
+  },
+  {
+    "id": "tua-igreja-canta",
+    "title": "tua igreja canta",
+    "artist": "Israel Salazar",
+    "key": "A",
+    "tags": [],
+    "searchText": "À estrela da manhã Ao rei dos reis Senhor , a Ele o louvo r J esus tu és o r ei Reina em nossos coraçõ es Teu é o reino e o pod er Pra sempre am ém Tua igreja canta a Ti Ergue a voz para declarar Um só povo a proclamar Cantando bem alto, bem alto Rei! Tu és o Re__e i Rei! Tu és o Re__e i"
+  }
 ]
-

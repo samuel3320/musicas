@@ -108,6 +108,8 @@ async function initSearchPage() {
     const r = await fetch('data/index.json');
     if (!r.ok) throw new Error('HTTP ' + r.status);
     _allSongs = await r.json();
+    // Ordena as músicas em ordem alfabética (A-Z)
+    _allSongs.sort((a, b) => (a.title || '').localeCompare(b.title || '', 'pt-BR', { sensitivity: 'base' }));
   } catch (err) {
     document.getElementById('results-container').innerHTML = `
       <div class="empty-state">
@@ -498,98 +500,16 @@ function _parsePastedCifra(text) {
   return { title, artist, key, capo, content };
 }
 
-/* ============================================================
-   CONVERSOR: Formato acordes-acima-da-letra → colchetes inline
-   ============================================================ */
-
-/** Detecta se um token individual é um acorde válido */
-function _isChordToken(tok) {
-  return /^[A-G][#b]?(m(aj\d*)?|min|aug|dim|sus[24]?|add\d*|M)?(\d+)?(\/[A-G][#b]?)?([#b])?$/.test(tok);
-}
-
-/** Detecta se uma linha inteira é de acordes (todos os tokens são acordes) */
-function _isChordLine(line) {
-  const toks = line.trim().split(/\s+/).filter(Boolean);
-  return toks.length > 0 && toks.every(_isChordToken);
-}
-
-/** Extrai acordes e suas posições de coluna de uma linha de acordes */
-function _extractChords(line) {
-  const result = [];
-  const re = /([A-G][#b]?\S*)/g;
-  let m;
-  while ((m = re.exec(line)) !== null) {
-    if (_isChordToken(m[1])) result.push({ chord: m[1], col: m.index });
-  }
-  return result;
-}
-
-/**
- * Junta uma linha de acordes com uma linha de letras no formato inline.
- * Insere [ACORDE] antes da posição correspondente na letra.
- */
-function _mergeChordAndLyric(chordLine, lyricLine) {
-  const chords = _extractChords(chordLine);
-  if (chords.length === 0) return lyricLine;
-
-  let result = lyricLine;
-
-  // Insere da direita para a esquerda para não deslocar posições
-  const sorted = [...chords].sort((a, b) => b.col - a.col);
-
-  for (const { chord, col } of sorted) {
-    const pos = Math.min(col, result.length);
-    result = result.slice(0, pos) + `[${chord}]` + result.slice(pos);
-  }
-
-  return result;
-}
-
 /**
  * Converte texto de cifra para o formato com colchetes inline.
- * Suporta:
- *  - Formato com acordes acima da letra (CifraClub tradicional)
- *  - Formato já com colchetes [G]letra
+ * Usa a engine central de reconhecimento de acordes de transpose.js.
  */
 function _convertToInlineFormat(text) {
-  if (!text.trim()) return '';
-
-  // Se já tem colchetes inline, retorna direto (pode limpar espaços extras)
-  if (/\[[A-G][^\]]*\]/.test(text)) {
-    return text.trim();
+  if (!text || !text.trim()) return '';
+  if (typeof normalizeToInlineChords === 'function') {
+    return normalizeToInlineChords(text);
   }
-
-  const lines = text.split('\n');
-  const result = [];
-  let i = 0;
-
-  while (i < lines.length) {
-    const line     = lines[i];
-    const nextLine = i + 1 < lines.length ? lines[i + 1] : null;
-
-    if (_isChordLine(line)) {
-      if (nextLine !== null && nextLine.trim() !== '' && !_isChordLine(nextLine)) {
-        // Par acorde + letra → merge
-        result.push(_mergeChordAndLyric(line, nextLine));
-        i += 2;
-      } else if (nextLine === null || nextLine.trim() === '') {
-        // Linha de acordes pura (instrumental, sem letra)
-        const chords = _extractChords(line);
-        result.push(chords.map(c => `[${c.chord}]`).join('  '));
-        i += (nextLine !== null && nextLine.trim() === '') ? 2 : 1;
-      } else {
-        // Duas linhas de acordes seguidas — guarda a primeira como instrumental
-        const chords = _extractChords(line);
-        result.push(chords.map(c => `[${c.chord}]`).join('  '));
-        i++;
-      }
-    } else {
-      result.push(line);
-      i++;
-    }
-  }
-
-  return result.join('\n').trim();
+  return text.trim();
 }
 
 /** Atualiza o painel de preview */

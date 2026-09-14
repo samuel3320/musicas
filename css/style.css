@@ -597,54 +597,54 @@ mark {
    ============================================================ */
 .cifra-display {
   font-size: 1rem;
-  line-height: 1;
-  /* font-size is overridden by JS for zoom */
+  line-height: 0.9;
 }
 
 .cifra-row {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-start;
-  /* small gap between logical lines */
-  margin-bottom: .05em;
+  align-items: flex-start; /* todos os acordes alinhados no topo na linha de acordes */
+  margin-bottom: 0.25em; /* espaçamento compacto entre estrofes/frases */
 }
 
 .chord-group {
   display: inline-flex;
   flex-direction: column;
   align-items: flex-start;
-  /* preserve spaces */
   white-space: pre;
 }
 
-/* The chord label above the lyric */
+/* O acorde acima da letra */
 .chord {
   color: var(--chord-color);
   font-family: var(--font-mono);
   font-weight: 700;
   font-size: .88em;
-  min-height: 1.55em;   /* always reserve space even when empty */
-  line-height: 1.35;
+  min-height: 1.05em;
+  line-height: 0.9;
   letter-spacing: .02em;
-  padding-right: .15em; /* visual gap so adjacent chords don't collide */
+  padding-right: .12em;
+  margin-bottom: 1px; /* acorde bem próximo da letra */
 }
 
-/* The lyric text below the chord */
+/* A letra abaixo do acorde */
 .lyric {
   font-family: var(--font-mono);
   font-size: 1em;
-  line-height: 1.75;
+  line-height: 0.9;
+  min-height: 1.1em; /* mantém a altura da linha de letra mesmo vazia */
   white-space: pre;
   color: var(--text-primary);
 }
 
-/* Pure lyric line (no chords on this line) */
+/* Linha de letra pura (sem acordes) */
 .cifra-lyric-only {
   font-family: var(--font-mono);
   font-size: 1em;
-  line-height: 1.75;
+  line-height: 0.9;
   color: var(--text-primary);
   white-space: pre-wrap;
+  margin-bottom: 0.25em;
 }
 
 /* Section markers: Verso, Refrão, Ponte… */
