@@ -93,6 +93,92 @@ function esc(s) {
     .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
+const Playlists = {
+  KEY: 'cifracloud-playlists',
+  get() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(this.KEY) || '[]');
+      return Array.isArray(saved) ? saved : [];
+    } catch { return []; }
+  },
+  save(lists) { localStorage.setItem(this.KEY, JSON.stringify(lists)); },
+  create(name) {
+    const cleanName = name.trim();
+    if (!cleanName) return false;
+    const lists = this.get();
+    lists.push({ id: `playlist-${Date.now()}`, name: cleanName, songIds: [] });
+    this.save(lists);
+    return true;
+  },
+  delete(listId) { this.save(this.get().filter(list => list.id !== listId)); },
+  addSong(listId, songId) {
+    const lists = this.get();
+    const list = lists.find(item => item.id === listId);
+    if (!list || list.songIds.includes(songId)) return false;
+    list.songIds.push(songId);
+    this.save(lists);
+    return true;
+  },
+  removeSong(listId, songId) {
+    const lists = this.get();
+    const list = lists.find(item => item.id === listId);
+    if (!list) return;
+    list.songIds = list.songIds.filter(id => id !== songId);
+    this.save(lists);
+  }
+};
+
+function _playlistSongOptions(list) {
+  return _allSongs.map(song => `<option value="${esc(song.id)}" ${list.songIds.includes(song.id) ? 'disabled' : ''}>${esc(song.title)}${song.artist ? ` — ${esc(song.artist)}` : ''}</option>`).join('');
+}
+
+function _renderPlaylists() {
+  const container = document.getElementById('playlists-container');
+  if (!container) return;
+  const lists = Playlists.get();
+  if (!lists.length) {
+    container.innerHTML = '<p class="playlists-empty">Nenhuma lista criada ainda.</p>';
+    return;
+  }
+  container.innerHTML = lists.map(list => {
+    const songs = list.songIds.map(id => _allSongs.find(song => song.id === id)).filter(Boolean);
+    const songsHtml = songs.length ? songs.map((song, index) => `
+      <div class="playlist-song-row"><span class="playlist-song-number">${index + 1}</span>
+        <a class="playlist-song-info playlist-song-link" href="cifra.html?id=${encodeURIComponent(song.id)}"><strong>${esc(song.title)}</strong><small>${esc(song.artist || '')}</small></a>
+        <button class="playlist-remove-song" data-list-id="${esc(list.id)}" data-song-id="${esc(song.id)}" title="Remover música">×</button>
+      </div>`).join('') : '<p class="playlist-no-songs">Escolha uma música acima para adicioná-la.</p>';
+    return `<article class="playlist-card"><div class="playlist-card-header"><div><h3>${esc(list.name)}</h3><span>${songs.length} música${songs.length !== 1 ? 's' : ''}</span></div>
+      <button class="playlist-delete" data-list-id="${esc(list.id)}">🗑️ Excluir lista</button></div>
+      <div class="playlist-add-row"><select class="form-input playlist-song-select" data-list-id="${esc(list.id)}"><option value="">Selecione uma música...</option>${_playlistSongOptions(list)}</select>
+      <button class="btn btn-primary playlist-add-song" data-list-id="${esc(list.id)}">＋ Adicionar</button></div><div class="playlist-songs">${songsHtml}</div></article>`;
+  }).join('');
+  container.querySelectorAll('.playlist-add-song').forEach(button => button.addEventListener('click', () => {
+    const select = container.querySelector(`.playlist-song-select[data-list-id="${button.dataset.listId}"]`);
+    if (!select.value) { showToast('Selecione uma música.', 'error'); return; }
+    Playlists.addSong(button.dataset.listId, select.value);
+    _renderPlaylists();
+    showToast('✓ Música adicionada à lista!');
+  }));
+  container.querySelectorAll('.playlist-remove-song').forEach(button => button.addEventListener('click', () => {
+    Playlists.removeSong(button.dataset.listId, button.dataset.songId); _renderPlaylists();
+  }));
+  container.querySelectorAll('.playlist-delete').forEach(button => button.addEventListener('click', () => {
+    if (confirm('Excluir esta lista e todas as músicas dela?')) { Playlists.delete(button.dataset.listId); _renderPlaylists(); }
+  }));
+}
+
+function _initPlaylists() {
+  document.getElementById('create-playlist-form')?.addEventListener('submit', event => {
+    event.preventDefault();
+    const input = document.getElementById('playlist-name-input');
+    if (!Playlists.create(input.value)) { showToast('Digite um nome para a lista.', 'error'); return; }
+    input.value = '';
+    _renderPlaylists();
+    showToast('✓ Lista criada!');
+  });
+  _renderPlaylists();
+}
+
 /* ============================================================
    PÁGINA DE BUSCA (index.html)
    ============================================================ */
@@ -121,6 +207,7 @@ async function initSearchPage() {
   }
 
   _renderResults(_allSongs, '');
+  _initPlaylists();
   _setupSearchListeners();
   _setupTagFilters();
 

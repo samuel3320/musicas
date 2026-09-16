@@ -302,6 +302,46 @@ mark {
 }
 
 /* ============================================================
+   PLAYLIST MANAGER
+   ============================================================ */
+.playlist-manager {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 0 1rem 1.5rem;
+}
+
+.playlist-manager-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: .75rem;
+}
+
+.playlist-manager-heading h2 { font-size: 1.15rem; }
+.playlist-manager-heading p { color: var(--text-secondary); font-size: .8rem; }
+.playlist-create-form { display: flex; gap: .4rem; }
+.playlist-create-form .form-input { width: 190px; padding: .4rem .6rem; }
+.playlist-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); margin-bottom: .65rem; overflow: hidden; }
+.playlist-card-header { display: flex; align-items: center; justify-content: space-between; gap: .75rem; padding: .7rem .85rem; background: var(--bg-secondary); border-bottom: 1px solid var(--border); }
+.playlist-card-header h3 { font-size: .95rem; }
+.playlist-card-header span { color: var(--text-tertiary); font-size: .72rem; }
+.playlist-delete, .playlist-remove-song { border: 0; background: none; color: var(--text-tertiary); cursor: pointer; font: inherit; font-size: .75rem; }
+.playlist-delete:hover, .playlist-remove-song:hover { color: #f85149; }
+.playlist-add-row { display: flex; gap: .5rem; padding: .7rem .85rem; border-bottom: 1px solid var(--border-subtle); }
+.playlist-song-select { flex: 1; min-width: 0; padding: .4rem .6rem; }
+.playlist-song-row { display: flex; align-items: center; gap: .65rem; padding: .55rem .85rem; border-bottom: 1px solid var(--border-subtle); }
+.playlist-song-row:last-child { border-bottom: 0; }
+.playlist-song-number { width: 1.2rem; color: var(--chord-color); font-family: var(--font-mono); font-size: .8rem; }
+.playlist-song-info { flex: 1; min-width: 0; }
+.playlist-song-link { color: var(--text-primary); text-decoration: none; }
+.playlist-song-link:hover { color: var(--accent); text-decoration: none; }
+.playlist-song-info strong, .playlist-song-info small { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.playlist-song-info strong { font-size: .85rem; }
+.playlist-song-info small { color: var(--text-secondary); font-size: .72rem; }
+.playlists-empty, .playlist-no-songs { color: var(--text-tertiary); font-size: .82rem; padding: .8rem; }
+
+/* ============================================================
    RESULTS
    ============================================================ */
 .results-container {
@@ -413,6 +453,13 @@ mark {
 
 .empty-state h3 { font-size: 1.1rem; margin-bottom: .4rem; color: var(--text-primary); }
 .empty-state p  { font-size: .9rem; }
+
+@media (max-width: 680px) {
+  .playlist-manager-heading { align-items: stretch; flex-direction: column; }
+  .playlist-create-form .form-input { flex: 1; width: auto; }
+  .playlist-add-row { align-items: stretch; flex-direction: column; }
+  .playlist-card-header { align-items: flex-start; }
+}
 
 /* ============================================================
    CIFRA PAGE

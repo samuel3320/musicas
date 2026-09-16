@@ -64,6 +64,21 @@
     <div id="tags-filter" class="tags-filter"></div>
   </section>
 
+  <!-- ====== LISTAS PERSONALIZADAS ====== -->
+  <section class="playlist-manager" aria-labelledby="playlist-manager-title">
+    <div class="playlist-manager-heading">
+      <div>
+        <h2 id="playlist-manager-title">📋 Minhas listas</h2>
+        <p>Organize as músicas que você vai tocar.</p>
+      </div>
+      <form id="create-playlist-form" class="playlist-create-form">
+        <input id="playlist-name-input" class="form-input" type="text" maxlength="60" placeholder="Nome da lista" aria-label="Nome da lista">
+        <button class="btn btn-primary" type="submit">＋ Criar lista</button>
+      </form>
+    </div>
+    <div id="playlists-container"></div>
+  </section>
+
   <!-- ====== RESULTADOS ====== -->
   <div id="results-container" class="results-container">
     <div class="initial-state">
